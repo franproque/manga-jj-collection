@@ -2,7 +2,7 @@
 import { BaseRepository } from './base-repository'
 export class MangaApi extends BaseRepository {
   constructor () {
-    super('https://api.jikan.moe/v3')
+    super('https://mangajj.jjeanjacques.com')
   }
 
   async login (username, password) {

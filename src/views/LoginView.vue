@@ -1,5 +1,5 @@
 <template>
-  <main class="fundo-padrao h-screen relative-main">
+  <main class="fundo-imagem h-screen relative-main">
     <div class="main wrapper">
     <div class="w-full mt-20 logo-gigante">
       <img class="w-full" src="../assets/logoJJ.png" alt="Logo mangaJJ">
@@ -19,25 +19,49 @@
         <input class='cor-fonte' type="password" v-model="login.password" placeholder="Password">
       </div>
 
-        <button class="login-button" type="submit">Login</button>
+        <button class="login-button" type="button" @click="loginSubmit">Login</button>
       </form>
     </div>
-    <div class="mine-personagem">
+    <!-- <div class="mine-personagem">
       <img class="w-full" src="../assets/MangaJJLogoMineLuffy.png" alt="">
-    </div>
+    </div> -->
 </main>
 </template>
 
 <script setup>
 import { ref } from 'vue'
+import { MangaApiService } from '../js/services/manga-api.service.js'
+import { CacheService } from '../js/services/cache.service.js'
+import { useRouter } from 'vue-router'
+const router = useRouter()
+const mangaApiService = new MangaApiService()
+const cacheService = new CacheService()
+
 const login = ref({
   email: '',
   password: ''
 })
 
+function loginSubmit () {
+  mangaApiService.login(login.value.email, login.value.password)
+    .then(response => {
+      if (response.success) {
+        cacheService.set('token', response.data.token)
+        router.push('home-page')
+      }
+    })
+}
 </script>
 
 <style scoped>
+.fundo-imagem {
+  background-image: url('../assets/backgroud-manga.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-attachment: fixed;
+
+}
 .relative-main{
   position: relative;
 }

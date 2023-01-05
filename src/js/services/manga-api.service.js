@@ -1,10 +1,12 @@
 import { MangaApi } from '../repository/manga-api.repository'
 import { CacheService } from './cache.service'
+import { useRouter } from 'vue-router'
 
 export class MangaApiService {
   constructor () {
     this.mangaApi = new MangaApi()
     this.cacheService = new CacheService()
+    this.router = useRouter()
   }
 
   async login (username, password) {
@@ -27,5 +29,10 @@ export class MangaApiService {
       return await this.mangaApi.getMangaList(url + `&title=${search}`)
     }
     return await this.mangaApi.getMangaList(url)
+  }
+
+  async loggout () {
+    this.cacheService.clear()
+    this.router.push({ name: 'login' })
   }
 }

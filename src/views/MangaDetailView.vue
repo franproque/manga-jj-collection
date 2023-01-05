@@ -1,7 +1,6 @@
 <template>
-<div class="main h-screen w-screen">
   <header class="header">
-    <div>
+    <div @click="voltar">
       <img src="../assets/eva_arrow-back-fill.png" alt="">
     </div>
       <h1>Naruto (20/72)</h1>
@@ -79,8 +78,15 @@
       </ul>
     </div>
   </main>
-</div>
 </template>
+<script setup>
+import { useRouter } from 'vue-router'
+const router = useRouter()
+function voltar () {
+  router.push({ name: 'home-page' })
+}
+
+</script>
 <style scoped>
   .wrapper-local {
     width: 95%;
@@ -94,6 +100,7 @@
     display: flex;
     flex-direction: row;
     align-items: center;
+    margin-top: 2rem;
     padding: 0 1.5rem;
     width: 100%;
     height: 7rem;
@@ -194,7 +201,7 @@
 }
 
 .manga .titulo-filtro-volumes-main .titulo-filtro h2 {
-  font-size: 2.5rem;
+  font-size: 2.2rem;
   font-family: 'Roboto Condensed', sans-serif;
   font-weight: 400;
 }
@@ -246,14 +253,15 @@
 .manga .titulo-filtro-volumes-main .lista-volumes .volume-item .tumb-titulo {
   display: flex;
   flex-direction: row;
+  flex-wrap: nowrap;
   align-items: center;
-  width: 50%;
-  height: 100%;
+  width: 100%;
+  height: 60%;
 }
 
 .manga .titulo-filtro-volumes-main .lista-volumes .volume-item .tumb-titulo div {
-  width: 5rem;
-  height: 5rem;
+  width: 20%;
+  height: 100%;
   border-radius: 1rem;
   overflow: hidden;
 }
@@ -264,7 +272,7 @@
 }
 
 .manga .titulo-filtro-volumes-main .lista-volumes .volume-item .tumb-titulo h3 {
-  font-size: 2rem;
+  font-size: 1.8rem;
   font-family: 'Roboto Condensed', sans-serif;
   font-weight: 400;
   margin-left: 1rem;
