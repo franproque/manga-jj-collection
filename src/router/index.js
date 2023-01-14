@@ -28,7 +28,10 @@ const routes = [
       layout: 'main',
       middleware: 'auth'
     }
-
+  },
+  {
+    path: '/',
+    redirect: '/login'
   }
 ]
 
