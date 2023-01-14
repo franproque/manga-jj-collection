@@ -10,5 +10,3 @@ createApp(App).use(store).use(router)
   .component('empty-layout', EmptyLayout)
   .component('main-layout', MainLayout)
   .mount('#app')
-
-console.log('Hello World')
