@@ -45,6 +45,7 @@ const login = ref({
 function loginSubmit () {
   mangaApiService.login(login.value.email, login.value.password)
     .then(response => {
+      console.log(response)
       if (response.success) {
         cacheService.set('token', response.data.token)
         router.push('home-page')
