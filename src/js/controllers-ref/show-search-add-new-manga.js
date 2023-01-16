@@ -4,10 +4,10 @@ function handleShowSearchAddNewManga (value) {
   showSearchAddNewManga.value = value
 }
 
-const listAddmanga = ref([])
+/* const listAddmanga = ref([])
 function handleListAddmanga (value) {
 
-}
+} */
 export {
   showSearchAddNewManga,
   handleShowSearchAddNewManga
