@@ -7,48 +7,14 @@
       <div class="meus-mangas-div">
         <h1>My Mangas</h1>
         <ul class="lista-mangas">
-          <li class="lista-mangas-item">
+          <li class="lista-mangas-item" v-for="item in collections" :key="item.id" @click="mangaDetalhes(item.id,item.manga.id)">
+
             <div>
-              <img src="../assets/naruto-tumb.jpg" alt="">
+              <img :src="item.manga.image" alt="">
             </div>
-            <h3>Naruto <span>(20/72)</span></h3>
+            <h3>{{ item.manga.title }} <span>(20/72)</span></h3>
           </li>
-          <li class="lista-mangas-item">
-            <div>
-              <img src="../assets/naruto-tumb.jpg" alt="">
-            </div>
-            <h3>Naruto <span>(20/72)</span></h3>
-          </li>
-          <li class="lista-mangas-item">
-            <div>
-              <img src="../assets/naruto-tumb.jpg" alt="">
-            </div>
-            <h3>Naruto <span>(20/72)</span></h3>
-          </li>
-          <li class="lista-mangas-item">
-            <div>
-              <img src="../assets/naruto-tumb.jpg" alt="">
-            </div>
-            <h3>Naruto <span>(20/72)</span></h3>
-          </li>
-          <li class="lista-mangas-item">
-            <div>
-              <img src="../assets/naruto-tumb.jpg" alt="">
-            </div>
-            <h3>Naruto <span>(20/72)</span></h3>
-          </li>
-          <li class="lista-mangas-item">
-            <div>
-              <img src="../assets/naruto-tumb.jpg" alt="">
-            </div>
-            <h3>Naruto <span>(20/72)</span></h3>
-          </li>
-          <li class="lista-mangas-item">
-            <div>
-              <img src="../assets/naruto-tumb.jpg" alt="">
-            </div>
-            <h3>Naruto <span>(20/72)</span></h3>
-          </li>
+
         </ul>
       </div>
     </main>
@@ -61,7 +27,14 @@ import { showSearch, handleShowSearch } from '../js/controllers-ref/show-search.
 import { handleShowSearchAddNewManga, showSearchAddNewManga } from '../js/controllers-ref/show-search-add-new-manga.js'
 import SearchAddNewMangaVue from '../components/Search/SearchAddNewManga.vue'
 import SearchMyMangaVue from '../components/Search/SearchMyManga.vue'
+import { collections, loadCollections } from '../js/controllers-ref/manga-collection'
+import { useRouter } from 'vue-router'
+const router = useRouter()
+loadCollections()
 
+function mangaDetalhes (id, mangaId) {
+  router.push({ name: 'manga-detail', params: { id: mangaId }, query: { collectionId: id } })
+}
 function enableOrDisableSearch () {
   const valorSearch = showSearch.value
   handleShowSearch(!valorSearch)

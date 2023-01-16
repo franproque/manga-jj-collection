@@ -2,15 +2,15 @@
 import { BaseRepository } from './base-repository'
 export class MangaApi extends BaseRepository {
   constructor () {
-    super(/* 'https://mangajj.jjeanjacques.com' */'http://localhost:3000')
+    super(/* 'https://mangajj.jjeanjacques.com' */'http://api.mangajj.sandbox.inf.br')
   }
 
   async login (username, password) {
-    return await this.requestApi('post', '/auth/login', {
+    return await this.requestApi('post', '/authentication', {
       'Content-Type': 'application/json'
     }, {
       email: username,
-      password
+      senha: password
     })
   }
 
@@ -24,12 +24,33 @@ export class MangaApi extends BaseRepository {
     })
   }
 
-  async getMangaList (page, limit, search) {
-    const url = `/manga?page=${page}&limit=${limit}`
+  async getMangaList (token, page = 1, limit = 50, search) {
+    const url = `/mangas?page=${page}&limit=${limit}`
 
     if (search) {
-      return await this.requestApi('get', url + `&title=${search}`)
+      return await this.requestApi('get', url + `&search=${search}`, {
+        Authorization: `Bearer ${token}`
+      })
     }
     return await this.requestApi('get', url, {}, {})
+  }
+
+  async getCollection (token, page = 1, limit = 50, search) {
+    const url = `/collections?page=${page}&limit=${limit}`
+    if (search !== undefined && search !== 'undefined' && search !== '') {
+      return await this.requestApi('get', url + `&search=${search}`, {
+        Authorization: `Bearer ${token}`
+      })
+    }
+
+    return await this.requestApi('get', url, {
+      Authorization: `Bearer ${token}`
+    })
+  }
+
+  async getCollectionDetail (token, id) {
+    return await this.requestApi('get', `/collections/${id}`, {
+      Authorization: `Bearer ${token}`
+    })
   }
 }

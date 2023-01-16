@@ -3,14 +3,16 @@
     <div @click="voltar">
       <img src="../assets/eva_arrow-back-fill.png" alt="">
     </div>
-      <h1>Naruto (20/72)</h1>
+      <h1>{{ manga.title }} (20/72)</h1>
   </header>
   <main class="manga">
-    <div class="manga-image">
+    <div class="manga-image" :style="`
+     background-image: url(${manga.image});
+    `">
     </div>
     <div class="wrapper-local informacoes">
       <p class="descricao">
-        Whenever Naruto Uzumaki proclaims that he will someday become the Hokage—a title bestowed upon the best ninja in the Village Hidden in the Leaves—no one takes him seriously. Since birth, Naruto has been shunned and ridiculed teste lkasklçassadsad
+        {{ manga.description }}
       </p>
 
       <ul class="tipos wrapper-local">
@@ -31,57 +33,37 @@
       </div>
 
       <ul class="lista-volumes">
-        <li class="volume-item">
+        <li class="volume-item" v-for="index in manga.volumes" :key="index">
           <div class="tumb-titulo">
             <div>
-              <img src="../assets/naruto-tumb.jpg" alt="">
+              <img :src="manga.image" alt="">
             </div>
-            <h3>Volume #1</h3>
+            <h3>Volume #{{index}}</h3>
           </div>
           <div class="checkbox">
             <input type="checkbox">
           </div>
         </li>
-        <li class="volume-item">
-          <div class="tumb-titulo">
-            <div>
-              <img src="../assets/naruto-tumb.jpg" alt="">
-            </div>
-            <h3>Volume #1</h3>
-          </div>
-          <div class="checkbox">
-            <input type="checkbox">
-          </div>
-        </li>
-        <li class="volume-item">
-          <div class="tumb-titulo">
-            <div>
-              <img src="../assets/naruto-tumb.jpg" alt="">
-            </div>
-            <h3>Volume #1</h3>
-          </div>
-          <div class="checkbox">
-            <input type="checkbox">
-          </div>
-        </li>
-        <li class="volume-item">
-          <div class="tumb-titulo">
-            <div>
-              <img src="../assets/naruto-tumb.jpg" alt="">
-            </div>
-            <h3>Volume #1</h3>
-          </div>
-          <div class="checkbox">
-            <input type="checkbox">
-          </div>
-        </li>
+
       </ul>
     </div>
   </main>
 </template>
 <script setup>
 import { useRouter } from 'vue-router'
+import { MangaApiService } from '../js/services/manga-api.service'
+import { ref } from 'vue'
+
+const mangaApiService = new MangaApiService()
+
 const router = useRouter()
+// recuperar o id da collection que foi passado na rota
+const id = router.currentRoute.value.query.collectionId
+const manga = ref({})
+mangaApiService.getCollectionDetail(id).then((response) => {
+  manga.value = response.data.data.manga
+})
+
 function voltar () {
   router.push({ name: 'home-page' })
 }
@@ -129,7 +111,6 @@ function voltar () {
     width: 100%;
     height: 35%;
     min-height: 35%;
-    background-image: url('../assets/naruto-tumb.jpg');
     background-size: cover;
   }
   .manga .informacoes {

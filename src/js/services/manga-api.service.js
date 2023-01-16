@@ -23,12 +23,16 @@ export class MangaApiService {
   }
 
   async getMangaList (page, limit, search) {
-    const url = `/manga?page=${page}&limit=${limit}`
+    console.log(localStorage.getItem('token'))
+    return await this.mangaApi.getMangaList(localStorage.getItem('token'), page, limit, search)
+  }
 
-    if (search) {
-      return await this.mangaApi.getMangaList(url + `&title=${search}`)
-    }
-    return await this.mangaApi.getMangaList(url)
+  async getCollection (page, limit, search) {
+    return await this.mangaApi.getCollection(await this.cacheService.get('token'), page, limit, search)
+  }
+
+  async getCollectionDetail (id) {
+    return await this.mangaApi.getCollectionDetail(await this.cacheService.get('token'), id)
   }
 
   async loggout () {

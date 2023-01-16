@@ -46,8 +46,9 @@ function loginSubmit () {
   mangaApiService.login(login.value.email, login.value.password)
     .then(response => {
       console.log(response)
+
       if (response.success) {
-        cacheService.set('token', response.data.token)
+        cacheService.set('token', response.data.data.token)
         router.push('home-page')
       }
     })
