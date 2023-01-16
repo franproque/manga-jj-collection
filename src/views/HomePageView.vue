@@ -12,7 +12,7 @@
             <div>
               <img :src="item.manga.image" alt="">
             </div>
-            <h3>{{ item.manga.title }} <span>(20/72)</span></h3>
+            <h3>{{ item.manga.title }} <span>(20/{{ item.manga.volumes }})</span></h3>
           </li>
 
         </ul>

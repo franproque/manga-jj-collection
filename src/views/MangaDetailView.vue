@@ -3,7 +3,7 @@
     <div @click="voltar">
       <img src="../assets/eva_arrow-back-fill.png" alt="">
     </div>
-      <h1>{{ manga.title }} (20/72)</h1>
+      <h1>{{ manga.title }} (20/{{ manga.volumes }})</h1>
   </header>
   <main class="manga">
     <div class="manga-image" :style="`
