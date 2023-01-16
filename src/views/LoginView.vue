@@ -41,7 +41,14 @@ const login = ref({
   email: '',
   password: ''
 })
+function validSeEstaLogado () {
+  const token = cacheService.get('token')
+  if (token) {
+    router.push('home-page')
+  }
+}
 
+validSeEstaLogado()
 function loginSubmit () {
   mangaApiService.login(login.value.email, login.value.password)
     .then(response => {

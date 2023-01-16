@@ -35,10 +35,12 @@ loadCollections()
 function mangaDetalhes (id, mangaId) {
   router.push({ name: 'manga-detail', params: { id: mangaId }, query: { collectionId: id } })
 }
+
 function enableOrDisableSearch () {
   const valorSearch = showSearch.value
   handleShowSearch(!valorSearch)
 }
+
 </script>
 <style scoped>
 .wrapper-local {
