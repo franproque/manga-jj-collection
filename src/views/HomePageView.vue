@@ -12,7 +12,7 @@
             <div>
               <img :src="item.manga.image" alt="">
             </div>
-            <h3>{{ item.manga.title }} <span>(20/{{ item.manga.volumes }})</span></h3>
+            <h3>{{ item.manga.title }} <span> ({{item.volumes.length }}/{{ item.manga.volumes }})</span></h3>
           </li>
 
         </ul>
@@ -31,7 +31,7 @@ import { collections, loadCollections } from '../js/controllers-ref/manga-collec
 import { useRouter } from 'vue-router'
 const router = useRouter()
 loadCollections()
-
+showSearchAddNewManga.value = false
 function mangaDetalhes (id, mangaId) {
   router.push({ name: 'manga-detail', params: { id: mangaId }, query: { collectionId: id } })
 }
@@ -103,7 +103,6 @@ function enableOrDisableSearch () {
   flex-direction: column;
   width: 45%;
   transform: scale(0.9);
-  justify-content: center;
   align-items: center;
   transition: transform 0.5s;
 }

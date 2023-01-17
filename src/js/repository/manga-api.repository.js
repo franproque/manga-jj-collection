@@ -53,4 +53,25 @@ export class MangaApi extends BaseRepository {
       Authorization: `Bearer ${token}`
     })
   }
+
+  async getMangaDetail (token, id) {
+    return await this.requestApi('get', `/mangas/${id}`, {
+      Authorization: `Bearer ${token}`
+    })
+  }
+
+  async adicionarMangaCollection (token, volume, mangaId, collectionId) {
+    const data = {
+      volume,
+      manga: mangaId
+    }
+
+    if (collectionId !== null && collectionId !== undefined && collectionId !== '' && collectionId !== 'undefined' && collectionId !== 'null' && collectionId !== 0) {
+      data.collection = collectionId
+    }
+    return await this.requestApi('post', '/collections-volumes', {
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json'
+    }, data)
+  }
 }

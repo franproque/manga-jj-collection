@@ -8,59 +8,30 @@
       <div class="search-main">
         <div class="search-main-input">
           <img src="../../assets/Search.png" alt="">
-          <input type="text" placeholder="Search">
+          <input type="text" placeholder="Search" @input="handleListAddmanga" v-model="inputSearch">
         </div>
 
         <ul class="search-main-list">
-          <li>
+          <li v-for="item of listAddmanga" :key="item.id" @click="toMangaDatail(item.id)">
             <div>
-              <img src="../../assets/naruto-tumb.jpg" alt="">
+              <img :src="item.image" alt="">
             </div>
-            <h3>Naruto <span>(20/72)</span></h3>
+            <h3>{{ item.title }} <span>({{ item.volumes }})</span></h3>
           </li>
-          <li>
-            <div>
-              <img src="../../assets/naruto-tumb.jpg" alt="">
-            </div>
-            <h3>Naruto <span>(20/72)</span></h3>
-          </li>
-          <li>
-            <div>
-              <img src="../../assets/naruto-tumb.jpg" alt="">
-            </div>
-            <h3>Naruto <span>(20/72)</span></h3>
-          </li>
-          <li>
-            <div>
-              <img src="../../assets/naruto-tumb.jpg" alt="">
-            </div>
-            <h3>Naruto <span>(20/72)</span></h3>
-          </li>
-          <li>
-            <div>
-              <img src="../../assets/naruto-tumb.jpg" alt="">
-            </div>
-            <h3>Naruto <span>(20/72)</span></h3>
-          </li>
-          <li>
-            <div>
-              <img src="../../assets/naruto-tumb.jpg" alt="">
-            </div>
-            <h3>Naruto <span>(20/72)</span></h3>
-          </li>
-          <li>
-            <div>
-              <img src="../../assets/naruto-tumb.jpg" alt="">
-            </div>
-            <h3>Naruto <span>(20/72)</span></h3>
-          </li>
+
         </ul>
       </div>
     </main>
 </template>
 
 <script setup>
-import { handleShowSearchAddNewManga } from '../../js/controllers-ref/show-search-add-new-manga.js'
+import { handleShowSearchAddNewManga, listAddmanga, handleListAddmanga, inputSearch } from '../../js/controllers-ref/show-search-add-new-manga.js'
+import { useRouter } from 'vue-router'
+const router = useRouter()
+handleListAddmanga()
+function toMangaDatail (id) {
+  router.push({ name: 'manga-detail', params: { id: id } })
+}
 </script>
 <style scoped>
 .model-search {

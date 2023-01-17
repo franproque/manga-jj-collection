@@ -8,13 +8,14 @@
       <div class="search-main">
         <div class="search-main-input">
           <img src="../../assets/Search.png" alt="">
-          <input type="text" placeholder="Search">
+          <input type="text" placeholder="Search" v-model="inputSearch" @input="handleListCollectionManga">
         </div>
       </div>
     </main>
 </template>
 <script setup>
-import { handleShowSearch } from '../../js/controllers-ref/show-search.js'
+import { handleShowSearch, inputSearch, handleListCollectionManga } from '../../js/controllers-ref/show-search.js'
+handleListCollectionManga()
 </script>
 <style scoped>
 .model-search {

@@ -3,7 +3,7 @@
     <div @click="voltar">
       <img src="../assets/eva_arrow-back-fill.png" alt="">
     </div>
-      <h1>{{ manga.title }} (20/{{ manga.volumes }})</h1>
+      <h1>{{ manga.title }} ({{ quantidadeVolumesChecked }}/{{ manga.volumes }})</h1>
   </header>
   <main class="manga">
     <div class="manga-image" :style="`
@@ -33,15 +33,15 @@
       </div>
 
       <ul class="lista-volumes">
-        <li class="volume-item" v-for="index in manga.volumes" :key="index">
+        <li class="volume-item" v-for="volume of volumes" :key="volume.id">
           <div class="tumb-titulo">
             <div>
               <img :src="manga.image" alt="">
             </div>
-            <h3>Volume #{{index}}</h3>
+            <h3>Volume #{{volume.volumeNumero}}</h3>
           </div>
           <div class="checkbox">
-            <input type="checkbox">
+            <input type="checkbox" v-model="volume.checked" @click="adicionarVolumeCollection(volume.volumeNumero)">
           </div>
         </li>
 
@@ -58,12 +58,53 @@ const mangaApiService = new MangaApiService()
 
 const router = useRouter()
 // recuperar o id da collection que foi passado na rota
-const id = router.currentRoute.value.query.collectionId
-const manga = ref({})
-mangaApiService.getCollectionDetail(id).then((response) => {
-  manga.value = response.data.data.manga
+
+const idCollection = ref(router.currentRoute.value.query.collectionId)
+const id = router.currentRoute.value.params.id
+
+mangaApiService.getMangaDetail(id).then((response) => {
+  manga.value = response.data.data
+  for (let i = 0; i < manga.value.volumes; i++) {
+    volumes.value.push({
+      id: manga.value.volumes[i],
+      volumeNumero: i + 1,
+      checked: false
+    })
+  }
+  mangaApiService.getCollectionDetail(idCollection.value).then((response) => {
+    const collections = response.data.data.volumes
+    for (const volume of collections) {
+      const index = volumes.value.findIndex((item) => {
+        console.log(item.volumeNumero, volume.volumeNumero)
+        return item.volumeNumero === volume.volumeNumero
+      })
+
+      if (index !== -1) {
+        volumes.value[index].checked = true
+      }
+    }
+    filterQuantidadeChecked()
+  })
 })
 
+const manga = ref({})
+
+const volumes = ref([])
+const quantidadeVolumesChecked = ref(0)
+
+function filterQuantidadeChecked () {
+  quantidadeVolumesChecked.value = volumes.value.filter(volume => volume.checked).length
+}
+
+async function adicionarVolumeCollection (volume) {
+  const result = await mangaApiService.adicionarMangaCollection(volume, manga.value.id, idCollection.value)
+  idCollection.value = result.data.data.collection
+  const index = volumes.value.findIndex(item => item.volumeNumero === result.data.data.volumeNumero)
+  if (index !== -1) {
+    volumes.value[index].checked = true
+  }
+  filterQuantidadeChecked()
+}
 function voltar () {
   router.push({ name: 'home-page' })
 }

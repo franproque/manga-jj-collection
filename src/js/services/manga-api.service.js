@@ -35,6 +35,14 @@ export class MangaApiService {
     return await this.mangaApi.getCollectionDetail(await this.cacheService.get('token'), id)
   }
 
+  async getMangaDetail (id) {
+    return await this.mangaApi.getMangaDetail(await this.cacheService.get('token'), id)
+  }
+
+  async adicionarMangaCollection (volume, mangaId, collectionId) {
+    return await this.mangaApi.adicionarMangaCollection(await this.cacheService.get('token'), volume, mangaId, collectionId)
+  }
+
   async loggout () {
     this.cacheService.clear()
     this.router.push({ name: 'login' })
