@@ -61,7 +61,6 @@ const router = useRouter()
 
 const idCollection = ref(router.currentRoute.value.query.collectionId)
 const id = router.currentRoute.value.params.id
-
 mangaApiService.getMangaDetail(id).then((response) => {
   manga.value = response.data.data
   for (let i = 0; i < manga.value.volumes; i++) {
@@ -71,7 +70,8 @@ mangaApiService.getMangaDetail(id).then((response) => {
       checked: false
     })
   }
-  mangaApiService.getCollectionDetail(idCollection.value).then((response) => {
+
+  mangaApiService.getCollectionDetail(id).then((response) => {
     const collections = response.data.data.volumes
     for (const volume of collections) {
       const index = volumes.value.findIndex((item) => {
@@ -97,12 +97,15 @@ function filterQuantidadeChecked () {
 }
 
 async function adicionarVolumeCollection (volume) {
+  console.log(volume, manga.value.id, idCollection.value)
   const result = await mangaApiService.adicionarMangaCollection(volume, manga.value.id, idCollection.value)
-  idCollection.value = result.data.data.collection
-  const index = volumes.value.findIndex(item => item.volumeNumero === result.data.data.volumeNumero)
-  if (index !== -1) {
-    volumes.value[index].checked = true
+  if (result.data.data !== null && result.data.data !== undefined && result.data.data !== '' && result.data.data !== 'null' && result.data.data !== 'undefined') {
+    if (result.data.data.collection !== null && result.data.data.collection !== undefined && result.data.data.collection !== '' && result.data.data.collection !== 'null' && result.data.data.collection !== 'undefined') {
+      idCollection.value = result.data.data.collection
+    }
   }
+
+  console.log(result.data.data)
   filterQuantidadeChecked()
 }
 function voltar () {

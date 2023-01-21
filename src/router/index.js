@@ -4,6 +4,7 @@ import HomePage from '../views/HomePageView.vue'
 import MangaDetailView from '../views/MangaDetailView.vue'
 import { CacheService } from '../js/services/cache.service.js'
 import { handleShowHeader } from '../js/controllers-ref/show-header.js'
+import CadastrarView from '../views/CadastrarView.vue'
 const cacheService = new CacheService()
 const routes = [
   {
@@ -32,6 +33,12 @@ const routes = [
   {
     path: '/',
     redirect: '/login'
+  },
+  {
+    path: '/cadastrar',
+    name: 'cadastrar',
+    component: CadastrarView
+
   }
 ]
 

@@ -5,23 +5,28 @@
       <img class="w-full" src="../assets/logoJJ.png" alt="Logo mangaJJ">
       <h3>Collection</h3>
     </div>
+    <h3 class="title-page">Cadastrar</h3>
       <form action="" class="form-login">
         <div class="input-login">
           <span>
             <img  src="../assets/mdi_user.png" alt="">
           </span>
-        <input class='cor-fonte' type="text" v-model="login.email" placeholder="Email">
+        <input class='cor-fonte' type="text" v-model="cadastrar.name" placeholder="Nome">
+      </div>
+        <div class="input-login">
+          <span>
+            <img  src="../assets/mdi_user.png" alt="">
+          </span>
+        <input class='cor-fonte' type="text" v-model="cadastrar.email" placeholder="Email">
       </div>
       <div class="input-login">
           <span>
             <img  src="../assets/mdi_password.png" alt="">
           </span>
-        <input class='cor-fonte' type="password" v-model="login.password" placeholder="Password">
+        <input class='cor-fonte' type="password" v-model="cadastrar.password" placeholder="Password">
       </div>
 
-        <button class="login-button" type="button" @click="loginSubmit">Login</button>
-
-        <router-link class="link-cadastro" to="/cadastrar">Não possuo conta</router-link>
+        <button class="login-button" type="button" @click="loginSubmit">Registrar</button>
       </form>
     </div>
     <!-- <div class="mine-personagem">
@@ -33,32 +38,23 @@
 <script setup>
 import { ref } from 'vue'
 import { MangaApiService } from '../js/services/manga-api.service.js'
-import { CacheService } from '../js/services/cache.service.js'
 import { useRouter } from 'vue-router'
 const router = useRouter()
 const mangaApiService = new MangaApiService()
-const cacheService = new CacheService()
 
-const login = ref({
+const cadastrar = ref({
   email: '',
-  password: ''
+  password: '',
+  name: ''
 })
-function validSeEstaLogado () {
-  const token = cacheService.get('token')
-  if (token) {
-    router.push('home-page')
-  }
-}
 
-validSeEstaLogado()
 function loginSubmit () {
-  mangaApiService.login(login.value.email, login.value.password)
+  mangaApiService.cadastrar(cadastrar.value.email, cadastrar.value.password, cadastrar.value.name)
     .then(response => {
       console.log(response)
 
       if (response.success) {
-        cacheService.set('token', response.data.data.token)
-        router.push('home-page')
+        router.push('login')
       }
     })
 }
@@ -84,7 +80,15 @@ function loginSubmit () {
   margin-top: 10rem;
   width: 100%;
 }
-
+.title-page {
+  font-size: 5rem;
+  font-weight: bold;
+  font-family: 'Roboto Condensed', sans-serif;
+  text-align: center;
+  color: rgba(37, 37, 37, 1);
+  left: 20%;
+  margin-top: 10%;
+}
 .logo-gigante h3{
   font-size: 3rem;
   font-weight: bold;
@@ -99,20 +103,13 @@ function loginSubmit () {
 
 .form-login {
 
-  margin-top: 7rem;
+  margin-top: 2.5rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
-.form-login .link-cadastro {
-  color: blue;
-  font-size: 1.8rem;
-  font-weight: 900;
-  font-size: 1.5rem;
-  margin-top: 4rem;
-  text-decoration: underline;
-}
+
 .input-login {
   border:  2px solid rgba(230, 230, 230, 1);
   display: flex;

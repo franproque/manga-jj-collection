@@ -39,6 +39,10 @@ export class MangaApiService {
     return await this.mangaApi.getMangaDetail(await this.cacheService.get('token'), id)
   }
 
+  async cadastrar (email, password, name) {
+    return await this.mangaApi.cadastrar(email, password, name)
+  }
+
   async adicionarMangaCollection (volume, mangaId, collectionId) {
     return await this.mangaApi.adicionarMangaCollection(await this.cacheService.get('token'), volume, mangaId, collectionId)
   }
