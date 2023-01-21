@@ -1,5 +1,6 @@
 <template>
   <main class="fundo-imagem h-screen relative-main">
+
     <div class="main wrapper">
     <div class="w-full mt-20 logo-gigante">
       <img class="w-full" src="../assets/logoJJ.png" alt="Logo mangaJJ">
@@ -27,6 +28,7 @@
       </div>
 
         <button class="login-button" type="button" @click="loginSubmit">Registrar</button>
+        <router-link class="link-cadastro" to="/login">Cancelar</router-link>
       </form>
     </div>
     <!-- <div class="mine-personagem">
@@ -109,7 +111,13 @@ function loginSubmit () {
   justify-content: center;
   align-items: center;
 }
-
+.form-login .link-cadastro {
+  color: red;
+  font-size: 2rem;
+  font-weight: 900;
+  margin-top: 4rem;
+  text-decoration: underline;
+}
 .input-login {
   border:  2px solid rgba(230, 230, 230, 1);
   display: flex;
