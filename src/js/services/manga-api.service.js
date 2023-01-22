@@ -19,6 +19,7 @@ export class MangaApiService {
 
   async createUser (name, email, password) {
     const response = await this.mangaApi.createUser(name, email, password)
+
     return response
   }
 

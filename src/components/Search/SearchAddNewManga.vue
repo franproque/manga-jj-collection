@@ -8,7 +8,7 @@
       <div class="search-main">
         <div class="search-main-input">
           <img src="../../assets/Search.png" alt="">
-          <input type="text" placeholder="Search" @input="handleListAddmanga" v-model="inputSearch">
+          <input type="text" placeholder="Search" @keyup.enter="handleListAddmanga" v-model="inputSearch">
         </div>
 
         <ul class="search-main-list">

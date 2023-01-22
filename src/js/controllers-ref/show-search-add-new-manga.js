@@ -9,6 +9,7 @@ function handleShowSearchAddNewManga (value) {
 const inputSearch = ref('')
 const listAddmanga = ref([])
 function handleListAddmanga () {
+  console.log(inputSearch.value)
   mangaApiService.getMangaList(1, 50, inputSearch.value).then((response) => {
     console.log(response.data.data.data.data)
 

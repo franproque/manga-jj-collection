@@ -53,9 +53,7 @@ const cadastrar = ref({
 function loginSubmit () {
   mangaApiService.cadastrar(cadastrar.value.email, cadastrar.value.password, cadastrar.value.name)
     .then(response => {
-      console.log(response)
-
-      if (response.success) {
+      if (response.success && (response.status === 200 || response.status === 201)) {
         router.push('login')
       }
     })

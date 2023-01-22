@@ -35,6 +35,7 @@ import { ref } from 'vue'
 import { MangaApiService } from '../js/services/manga-api.service.js'
 import { CacheService } from '../js/services/cache.service.js'
 import { useRouter } from 'vue-router'
+
 const router = useRouter()
 const mangaApiService = new MangaApiService()
 const cacheService = new CacheService()
@@ -56,7 +57,7 @@ function loginSubmit () {
     .then(response => {
       console.log(response)
 
-      if (response.success) {
+      if (response.success && response.data.data.token !== undefined) {
         cacheService.set('token', response.data.data.token)
         router.push('home-page')
       }

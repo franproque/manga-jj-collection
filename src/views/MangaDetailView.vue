@@ -53,7 +53,8 @@
 import { useRouter } from 'vue-router'
 import { MangaApiService } from '../js/services/manga-api.service'
 import { ref } from 'vue'
-
+import { useToast } from 'vue-toastification'
+const toast = useToast()
 const mangaApiService = new MangaApiService()
 
 const router = useRouter()
@@ -101,6 +102,9 @@ async function adicionarVolumeCollection (volume) {
   const result = await mangaApiService.adicionarMangaCollection(volume, manga.value.id, idCollection.value)
   if (result.data.data !== null && result.data.data !== undefined && result.data.data !== '' && result.data.data !== 'null' && result.data.data !== 'undefined') {
     if (result.data.data.collection !== null && result.data.data.collection !== undefined && result.data.data.collection !== '' && result.data.data.collection !== 'null' && result.data.data.collection !== 'undefined') {
+      if (idCollection.value !== result.data.data.collection) {
+        toast.info('Collection criada com sucesso', 'Sucesso', { timeout: 3000 })
+      }
       idCollection.value = result.data.data.collection
     }
   }
