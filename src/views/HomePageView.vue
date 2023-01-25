@@ -1,9 +1,9 @@
 <template class="template-style">
     <main class="main-items wrapper-local">
-      <div class="buttons-div-home">
-        <button class="button-home" @click="handleShowSearchAddNewManga(true)">Add new manga</button>
-        <button class="button-home" @click="enableOrDisableSearch">Search</button>
-      </div>
+        <div class="search-main-input">
+          <img src="../assets/Search.png" alt="">
+          <input type="text" placeholder="Search" v-model="inputSearch" @input="handleListCollectionManga">
+        </div>
       <div class="meus-mangas-div">
         <h1>My Mangas</h1>
         <ul class="lista-mangas">
@@ -16,17 +16,20 @@
           </li>
 
         </ul>
+
+        <div class="flooat-button fundo-padrao" @click="handleShowSearchAddNewManga(true)" >
+          <img src="../assets/plus.png" alt="">
+        </div>
       </div>
     </main>
     <SearchAddNewMangaVue v-if="showSearchAddNewManga" />
-    <SearchMyMangaVue v-if="showSearch" />
 </template>
 <script setup>
 
-import { showSearch, handleShowSearch } from '../js/controllers-ref/show-search.js'
 import { handleShowSearchAddNewManga, showSearchAddNewManga } from '../js/controllers-ref/show-search-add-new-manga.js'
+import { inputSearch, handleListCollectionManga } from '../js/controllers-ref/show-search.js'
+
 import SearchAddNewMangaVue from '../components/Search/SearchAddNewManga.vue'
-import SearchMyMangaVue from '../components/Search/SearchMyManga.vue'
 import { collections, loadCollections } from '../js/controllers-ref/manga-collection'
 import { useRouter } from 'vue-router'
 const router = useRouter()
@@ -36,16 +39,17 @@ function mangaDetalhes (id, mangaId) {
   router.push({ name: 'manga-detail', params: { id: mangaId }, query: { collectionId: id } })
 }
 
-function enableOrDisableSearch () {
+/* function enableOrDisableSearch () {
   const valorSearch = showSearch.value
   handleShowSearch(!valorSearch)
-}
+} */
 
 </script>
 <style scoped>
 .wrapper-local {
     margin: 0 auto;
     width: 90%;
+    position: relative;
 }
 
 .main-items{
@@ -55,7 +59,20 @@ function enableOrDisableSearch () {
   height: auto;
   overflow: auto;
 }
-
+.flooat-button {
+  position: fixed;
+  bottom: 5rem;
+  right: 2rem;
+  width: 6rem;
+  height: 6rem;
+  border-radius: 50%;
+  padding: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: transform 0.5s;
+}
 .buttons-div-home {
   display:flex;
   flex-direction: row;
@@ -134,4 +151,35 @@ function enableOrDisableSearch () {
   width: 100%;
 }
 
+ .search-main-input {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 4.8rem;
+  background-color: rgba(255, 255, 255, 0.51);
+  padding-left: 1rem;
+  align-items: center;
+  border-bottom: 0.2rem solid rgb(255, 204, 0,0.5);
+
+  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+}
+
+.search-main-input input {
+  width: 100%;
+  height: 100%;
+  background-color: transparent;
+  border: none;
+  font-size: 2rem;
+  font-weight: 400;
+  font-family: 'Roboto', sans-serif;
+  color: black;
+  padding-left: 1rem;
+  outline: 0;
+}
+.search-main-input input::placeholder {
+  color: white;
+  font-size: 2rem;
+  font-weight: 400;
+  font-family: 'Roboto', sans-serif;
+}
 </style>

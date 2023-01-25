@@ -28,7 +28,6 @@
 import { handleShowSearchAddNewManga, listAddmanga, handleListAddmanga, inputSearch } from '../../js/controllers-ref/show-search-add-new-manga.js'
 import { useRouter } from 'vue-router'
 const router = useRouter()
-handleListAddmanga()
 function toMangaDatail (id) {
   router.push({ name: 'manga-detail', params: { id: id } })
 }

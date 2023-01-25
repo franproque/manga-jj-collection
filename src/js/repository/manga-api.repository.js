@@ -2,7 +2,7 @@
 import { BaseRepository } from './base-repository'
 export class MangaApi extends BaseRepository {
   constructor () {
-    super(/* 'https://mangajj.jjeanjacques.com' */'http://api.mangajj.sandbox.inf.br')
+    super(/* 'https://mangajj.jjeanjacques.com' *//* 'http://api.mangajj.sandbox.inf.br' */'http://localhost:9080')
   }
 
   async cadastrar (email, password, name) {
