@@ -6,9 +6,9 @@
       <h1>{{ manga.title }} ({{ quantidadeVolumesChecked }}/{{ manga.volumes }})</h1>
   </header>
   <main class="manga">
-    <div class="manga-image" :style="`
-     background-image: url(${manga.image});
-    `">
+    <div class="manga-header ">
+    <div class="manga-image">
+      <img :src="manga.image" alt="">
     </div>
     <div class="wrapper-local informacoes">
       <p class="descricao">
@@ -21,6 +21,7 @@
         <li class="fundo-padrao">Fight</li>
       </ul>
     </div>
+  </div>
 
     <div class="titulo-filtro-volumes-main">
       <div class="titulo-filtro">
@@ -108,10 +109,10 @@ async function adicionarVolumeCollection (volume) {
       idCollection.value = result.data.data.collection
     }
   }
-
   console.log(result.data.data)
   filterQuantidadeChecked()
 }
+
 function voltar () {
   router.push({ name: 'home-page' })
 }
@@ -154,17 +155,34 @@ function voltar () {
     min-height: 90%;
     height: auto;
   }
-
-  .manga .manga-image{
+.manga .manga-header {
     width: 100%;
     height: 35%;
     min-height: 35%;
-    background-size: cover;
+    display: flex;
+    flex-direction: row;
+}
+
+  .manga .manga-header .manga-image{
+    width: 100%;
+    height: 100%;
+    min-height: 35%;
+    transform: scale(0.8);
+    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+    border-radius: 2rem;
+
   }
+
+  .manga .manga-header .manga-image img {
+    width: 100%;
+    height: 100%;
+    border-radius: 2rem;
+
+  }
+
   .manga .informacoes {
     margin-top: 2rem;
     text-align: justify;
-
   }
 .manga .informacoes .descricao {
   width: 100%;

@@ -53,7 +53,6 @@ function mangaDetalhes (id, mangaId) {
 }
 
 .main-items{
-
   margin-top: 3rem;
   min-height: 80%;
   height: auto;
@@ -72,6 +71,10 @@ function mangaDetalhes (id, mangaId) {
   align-items: center;
   cursor: pointer;
   transition: transform 0.5s;
+}
+
+.flooat-button:hover {
+  transform: scale(1.1);
 }
 .buttons-div-home {
   display:flex;
@@ -161,7 +164,7 @@ function mangaDetalhes (id, mangaId) {
   align-items: center;
   border-bottom: 0.2rem solid rgb(255, 204, 0,0.5);
 
-  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.60));
 }
 
 .search-main-input input {

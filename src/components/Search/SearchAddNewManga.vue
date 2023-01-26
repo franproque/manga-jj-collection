@@ -99,6 +99,7 @@ function toMangaDatail (id) {
   overflow-y: auto;
   overflow-x: hidden;
   height: auto;
+  transition: all 0.5s ease;
 }
 
 .model-search .search-main-list li {
